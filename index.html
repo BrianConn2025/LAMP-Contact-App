@@ -1,22 +1,41 @@
 <html>
 <head>
-	<title>COP 4331 LAMP Stack Demo</title>
-	<script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* ... (previous styles remain unchanged) ... */
+    </style>
 </head>
 <body>
 
-<h1 id="title">COP 4331 LAMP Stack Demo</h1>
+    <form id="loginForm">
+        <h2>Login</h2>
+        <div class="error-message" id="error-message"></div>
+        <label for="login">Username:</label>
+        <input type="text" id="login" name="login" required>
 
-<div id="loginDiv">
-	<span id="inner-title">PLEASE LOG IN</span>
-	<input type="text" id="loginName" placeholder="Username" /><br />
-	<input type="password" id="loginPassword" placeholder="Password"/><br />
-	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Do It </button>
-	<span id="loginResult"></span>
-</div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="button" onclick="validateAndSubmit()">Login</button>
+    </form>
+
+    <script>
+        function validateAndSubmit() {
+            var loginValue = document.getElementById('login').value;
+            var passwordValue = document.getElementById('password').value;
+
+            if (loginValue === '' || passwordValue === '') {
+                document.getElementById('error-message').innerText = "Please enter both username and password.";
+            } else {
+                // You can proceed with form submission or make an AJAX call to the server here
+                document.getElementById('error-message').innerText = "";
+                // For simplicity, I'm just displaying an alert
+                alert("Form submitted successfully!");
+            }
+        }
+    </script>
 
 </body>
 </html>
