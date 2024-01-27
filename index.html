@@ -1,22 +1,211 @@
 <html>
 <head>
-	<title>COP 4331 LAMP Stack Demo</title>
-	<script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .form-tab {
+            flex: 1;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            border: 1px solid #fff; /* White border around the buttons */
+            border-radius: 5px 5px 0 0;
+        }
+
+        .form-tab.active {
+            background-color: #2980b9;
+            border-color: #fff;
+        }
+
+        .form-group {
+            margin-top: 15px;
+        }
+
+        h2 {
+            text-transform: uppercase;
+        }
+
+        input {
+            width: calc(100% - 20px); /* Adjust width based on your preference */
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: calc(100% - 20px); /* Adjust width based on your preference */
+            background-color: #3498db;
+            color: #fff;
+            border: 2px solid #fff; /* White border around the buttons */
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold; /* Bolden button text */
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            border-color: #fff;
+        }
+
+        .signup-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px; /* Increased spacing */
+        }
+
+        .signup-group button {
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-<h1 id="title">COP 4331 LAMP Stack Demo</h1>
+    <div id="welcomePage" class="form-container">
+        <h2>Welcome to Our Platform</h2>
+        <p>Sign In or Sign Up to Continue:</p>
+        <button onclick="showLoginForm()">Get Started</button>
+    </div>
 
-<div id="loginDiv">
-	<span id="inner-title">PLEASE LOG IN</span>
-	<input type="text" id="loginName" placeholder="Username" /><br />
-	<input type="password" id="loginPassword" placeholder="Password"/><br />
-	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Do It </button>
-	<span id="loginResult"></span>
-</div>
+    <div id="formsContainer" class="hidden">
+        <div class="form-container">
+            <div class="form-tabs">
+                <div class="form-tab active" onclick="showLoginForm()">Login</div>
+                <div class="form-tab" onclick="showSignUpForm()">Sign Up</div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <div class="error-message" id="error-message"></div>
+                <div class="form-group">
+                    <label for="login">Username:</label>
+                    <input type="text" id="login" name="login" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" onclick="validateAndSubmit()">Login</button>
+                </div>
+            </form>
+
+            <!-- Sign-up Form -->
+            <form id="signUpForm" class="hidden">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" onclick="validateAndSignUp()">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Function to show the login form and hide the welcome page
+        function showLoginForm() {
+            document.getElementById('welcomePage').classList.add('hidden');
+            document.getElementById('formsContainer').classList.remove('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('signUpForm').classList.add('hidden');
+            document.querySelector('.form-tab.active').classList.remove('active');
+            document.querySelector('.form-tab:nth-child(1)').classList.add('active');
+        }
+
+        // Function to show the sign-up form and hide the welcome page
+        function showSignUpForm() {
+            document.getElementById('welcomePage').classList.add('hidden');
+            document.getElementById('formsContainer').classList.remove('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('signUpForm').classList.remove('hidden');
+            document.querySelector('.form-tab.active').classList.remove('active');
+            document.querySelector('.form-tab:nth-child(2)').classList.add('active');
+        }
+
+        function validateAndSubmit() {
+            var loginValue = document.getElementById('login').value;
+            var passwordValue = document.getElementById('password').value;
+
+            if (loginValue === '' || passwordValue === '') {
+                document.getElementById('error-message').innerText = "Please enter both username and password.";
+            } else {
+                document.getElementById('error-message').innerText = "";
+                alert("Login successful!");
+            }
+        }
+
+        function validateAndSignUp() {
+            var username = document.getElementById('username').value;
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+
+            // Perform validation and sign-up logic here
+
+            alert("Sign up successful!");
+
+            // After successful sign-up, you may want to automatically switch back to the login form
+            showLoginForm();
+        }
+    </script>
 
 </body>
 </html>
