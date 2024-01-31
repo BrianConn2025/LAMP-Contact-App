@@ -46,7 +46,7 @@ function doLogin()
 
 				saveCookie();
 	
-				window.location.href = "color.html";
+				window.location.href = "homepage.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -56,6 +56,38 @@ function doLogin()
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
 
+}
+
+function doRegister()
+{
+	let firstName = document.getElementById("enterFName").value;
+	let lastName = document.getElementById("enterLName").value;
+	let login = document.getElementById("registerUsername").value;
+	let password = document.getElementById("registerPassword").value;
+	
+	let tmp = {login, password, firstName, lastName};
+	let jsonPayload = JSON.stringify( tmp );
+	let url = urlBase + '/Register.' + extension;
+	let xhr = new XMLHttpRequest();
+	
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("registerResult").innerHTML = "Register Successful";
+			}
+		};
+		xhr.send(jsonPayload);
+		
+	}
+	catch(err)
+	{
+		document.getElementById("registerResult").innerHTML = err.message;
+	}
 }
 
 function saveCookie()
