@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .home-container {
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-search {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .home-title {
+            margin-bottom: 20px;
+        }
+
+        .home-buttons {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #3498db;
+            color: #fff;
+            border: 2px solid #fff; /* White border around the buttons */
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        button.view-button {
+            width: 60%; /* Reduced width for the "View My Info" button */
+            margin: 0 auto; /* Center the button */
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            border-color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="home-container">
+        <h2 class="home-title">Welcome!</h2>
+
+        <div class="home-search">
+			<button class="view-button" onclick="viewMyInfo()">View My Info</button>
+        </div>
+
+        <div class="home-buttons">
+			<label for="search"> OR: </label>
+            <input type="text" id="search" name="search" placeholder="Enter search term">
+            <button onclick="searchContacts()">Search Contacts</button>
+        </div>
+    </div>
+
+    <script>
+        function searchContacts() {
+            var searchTerm = document.getElementById('search').value;
+            // Implement search contacts functionality using the searchTerm
+            alert("Implement Search Contacts functionality with search term: " + searchTerm);
+        }
+
+        function viewMyInfo() {
+            // Implement view my info functionality
+            alert("Implement View My Info functionality");
+        }
+    </script>
+
+</body>
+</html>
